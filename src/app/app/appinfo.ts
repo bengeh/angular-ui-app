@@ -15,4 +15,5 @@ export interface Appinfo {
   id: number;
   fullName: string;
   htmlUrl: string;
+  createdAt: Date;
 }

@@ -37,10 +37,12 @@ export class AppinfoService {
 
     console.log(this.gitHubInfo)
     for(var i = 0; i < json.length; i++){
+      console.log(typeof this.gitHubInfo[i]['createdAt'])
       this.appInfo.push({
         id: this.gitHubInfo[i]['id'],
         fullName: this.gitHubInfo[i]['fullName'],
-        htmlUrl: this.gitHubInfo[i]['htmlUrl']
+        htmlUrl: this.gitHubInfo[i]['htmlUrl'],
+        createdAt: new Date(this.gitHubInfo[i]['createdAt'])
       })
     }
     console.log(this.appInfo)
