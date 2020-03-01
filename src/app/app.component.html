@@ -18,8 +18,9 @@
 <ul class="list-group">
   <li class="list-group-item"
       *ngFor="let track of results | async">
+      Name of repo: {{ track.fullName }}
     <a target="_blank"
-       href="{{track}}">{{ track }}
+       href="{{track.htmlUrl}}">{{ track.htmlUrl }}
     </a>
   </li>
 </ul>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Appinfo } from './appinfo';
+import { Appinfo, GitHubInfo } from './appinfo';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { camelCase } from 'lodash';
@@ -24,39 +24,27 @@ const camelizeKeys: any = (obj: any) => {
   providedIn: 'root'
 })
 export class AppinfoService {
-
   constructor(private http: HttpClient) { }
-  appInfo: Array<AppinfoService> | AppinfoService[] = [];
-  appResult: Array<any> | any[] = [];
-  async getGitHubInfo(username: string) {
-    console.log("HENLO TRYING TO HIT API...." + username);
+  gitHubInfo: GitHubInfo | null = null;
+  appInfo: Array<Appinfo> | Appinfo[] = [];
+
+  async getGitHubInfo(username :string){
     let apiUrl = `https://api.github.com/users/${username}/repos`;
-    console.log(apiUrl);
     const response = await fetch(apiUrl);
-    console.log("AWAIT")
     const json = await response.json();
-    console.log(json)
+    console.log("HENLO JSON ", json)
+    this.gitHubInfo = new GitHubInfo(camelizeKeys(json))
+
+    console.log(this.gitHubInfo)
     for(var i = 0; i < json.length; i++){
-      this.appResult.push(json[i]['html_url'])
+      this.appInfo.push({
+        id: this.gitHubInfo[i]['id'],
+        fullName: this.gitHubInfo[i]['fullName'],
+        htmlUrl: this.gitHubInfo[i]['htmlUrl']
+      })
     }
-    console.log(this.appResult)
-    return this.appResult;
-    // return this.http.get(apiUrl).pipe(
-    //   map((res: any) => {
-    //     return(res.json().map(item => {
-    //       return new Appinfo(item);
-    //     }))
-    //   })
-    // );
-    // return this.http.get(apiUrl).pipe(
-    //   map((res: any) => {
-    //     console.log(res)
-    //     return res
-    //   })
-    // )
-
-    // return this.http.get('https://api.github.com/users/bengeh/repos')
-    // .pipe(map((res: any) => res.json()));
+    console.log(this.appInfo)
+    return this.appInfo
   }
-
 }
+

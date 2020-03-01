@@ -19,7 +19,7 @@ import {
 })
 
 export class AppComponent {
-  public results: Observable<Appinfo[]>;
+  public results: Observable<Array<Appinfo>>;
   public loading: boolean = false;
   public searchField: FormControl;
 
@@ -28,6 +28,7 @@ export class AppComponent {
   ngOnInit() {
     this.searchField = new FormControl();
     console.log("NG ON INIT....")
+
     this.results = this.searchField.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),
