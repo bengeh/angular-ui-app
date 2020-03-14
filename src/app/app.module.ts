@@ -5,17 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppinfoService } from './app/appinfo.service';
+import { ChartsModule } from 'ng2-charts';
+import { ChartPageComponent } from './chart-page/chart-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChartPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [AppinfoService],
   bootstrap: [AppComponent]

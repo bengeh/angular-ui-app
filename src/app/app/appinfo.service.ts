@@ -27,6 +27,8 @@ export class AppinfoService {
   constructor(private http: HttpClient) { }
   gitHubInfo: GitHubInfo | null = null;
   appInfo: Array<Appinfo> | Appinfo[] = [];
+  yearMap: Map<number, number> = new Map<number, number>();
+  
 
   async getGitHubInfo(username :string){
     let apiUrl = `https://api.github.com/users/${username}/repos`;
@@ -35,9 +37,18 @@ export class AppinfoService {
     console.log("HENLO JSON ", json)
     this.gitHubInfo = new GitHubInfo(camelizeKeys(json))
 
+
+
     console.log(this.gitHubInfo)
     for(var i = 0; i < json.length; i++){
-      console.log(typeof this.gitHubInfo[i]['createdAt'])
+      var curDate = new Date(this.gitHubInfo[i]['createdAt']).getFullYear();
+      console.log(curDate)
+      if(!this.yearMap.has(curDate)){
+        this.yearMap.set(curDate, 1)
+      }else{
+        this.yearMap.set(curDate, this.yearMap.get(curDate) + 1)
+      }
+
       this.appInfo.push({
         id: this.gitHubInfo[i]['id'],
         fullName: this.gitHubInfo[i]['fullName'],
@@ -46,6 +57,7 @@ export class AppinfoService {
       })
     }
     console.log(this.appInfo)
+    console.log("new map....", this.yearMap)
     return this.appInfo
   }
 }

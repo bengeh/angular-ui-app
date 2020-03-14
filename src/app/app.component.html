@@ -25,4 +25,9 @@
     created at: {{ track.createdAt | date: 'MM/dd/yyyy'}}
   </li>
 </ul>
-<!-- <router-outlet></router-outlet> -->
+<li *ngFor="let recipient of graphData | keyvalue">
+  {{recipient.key}} --> {{recipient.value}}
+</li>
+<!-- <a *ngIf="showText" class="nav-link" routerLink="/bar-chart" [state]="graphData">Click here to view the bar chart of yearly commits</a> -->
+<button *ngIf="showText" (click)="sendMessageto2()">Click here to view the bar chart</button>
+<router-outlet></router-outlet>
