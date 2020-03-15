@@ -48,7 +48,7 @@ export class AppinfoService {
       }else{
         this.yearMap.set(curDate, this.yearMap.get(curDate) + 1)
       }
-
+      
       this.appInfo.push({
         id: this.gitHubInfo[i]['id'],
         fullName: this.gitHubInfo[i]['fullName'],

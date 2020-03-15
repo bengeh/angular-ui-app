@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { arrayMax } from '../utils/common';
 
 @Component({
   selector: 'app-chart-page',
@@ -12,10 +13,19 @@ export class ChartPageComponent implements OnInit {
   public barChartLegend = true;
   public barChartDataArray = [];
   public barChartData = [];
-  
+  public tickMax = 0;
+  public barChartOptions = {};
+
   constructor(private router: Router) {
     console.log("HENLO NEW HISTORY WINDOW STATE....", this.router.getCurrentNavigation().extras.state)
+    console.log([this.router.getCurrentNavigation().extras.state].sort(function(a: any,b: any) {
+      console.log(a)
+      debugger;
+      console.log("bbbbb...." ,b)
+      return a-b
+    }))
     this.router.getCurrentNavigation().extras.state.forEach((value: any, key: any) =>{
+      
       console.log("this the key...", key)
       console.log("this the value...", value)
       this.barChartLabels.push(key)
@@ -24,11 +34,22 @@ export class ChartPageComponent implements OnInit {
     this.barChartData.push({
       data: this.barChartDataArray
     })
+    this.tickMax = arrayMax(this.barChartDataArray)
+    console.log("new tickmax...", this.tickMax)
+    this.barChartOptions = {
+      scaleShowVerticalLines: false,
+      responsive: true,
+      scales:{
+        yAxes:[{
+          ticks: {
+            min: 0,
+            max: this.tickMax,
+            stepSize: 1
+          }
+        }]
+        
+      }
    }
-   
-  public barChartOptions = {
-    scaleShowVerticalLines: false,
-    responsive: true
   };
 
   // public barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
