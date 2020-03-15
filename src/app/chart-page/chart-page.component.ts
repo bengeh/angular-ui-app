@@ -18,12 +18,7 @@ export class ChartPageComponent implements OnInit {
 
   constructor(private router: Router) {
     console.log("HENLO NEW HISTORY WINDOW STATE....", this.router.getCurrentNavigation().extras.state)
-    console.log([this.router.getCurrentNavigation().extras.state].sort(function(a: any,b: any) {
-      console.log(a)
-      debugger;
-      console.log("bbbbb...." ,b)
-      return a-b
-    }))
+
     this.router.getCurrentNavigation().extras.state.forEach((value: any, key: any) =>{
       
       console.log("this the key...", key)
