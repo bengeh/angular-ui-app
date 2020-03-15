@@ -20,7 +20,6 @@ describe('AppinfoService', () => {
     (done: DoneFn) => {
     service.getGitHubInfo("bengeh").then(value => {
       expect(value[0].fullName).toBe('bengeh/add-test');
-      console.log("the value coming from appinfo service test...", value[0].fullName)
       done();
     });
   });

@@ -8,8 +8,9 @@ class RouterStub{
     return {
        extras: {
           state:[{
-            locationId: 'someId',
-            locationName: 'someName'
+            2010: 3,
+            2011: 4,
+            2013: 6
           }]
         }
       }
@@ -17,8 +18,6 @@ class RouterStub{
  }
 
 describe('ChartPageComponent', () => {
-  let component: ChartPageComponent;
-  let fixture: ComponentFixture<ChartPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,16 +28,19 @@ describe('ChartPageComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ChartPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ChartPageComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 
+  it('should render the graph', () => {
+    const fixture = TestBed.createComponent(ChartPageComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    console.log("THE COMPILED COMING FROM CHART PAGE TEST...", compiled.querySelector('#barChart').style.display)
+    expect(compiled.querySelector('#barChart').style.display).toBe('block');
+  });
   afterEach(() => {
     TestBed.resetTestingModule();
   });
